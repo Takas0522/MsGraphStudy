@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import * as graph from '@microsoft/microsoft-graph-client';
 import { AuthService } from './auth.service';
 import { Observable, from } from 'rxjs';
-import { User, Calendar } from '@microsoft/microsoft-graph-types';
+import { User, Calendar, Message } from '@microsoft/microsoft-graph-types';
 
 @Injectable({
     providedIn: 'root'
@@ -33,5 +33,9 @@ export class GraphService {
 
     getMeEvent(startDateTime: Date, endDateTime: Date): Observable<Calendar> {
         return from(this.client.api(`/me/calendarView?startDateTime=${startDateTime.toJSON}&endDateTime=${endDateTime.toJSON}`).get());
+    }
+
+    getMail(): Observable<Message> {
+        return from(this.client.api('/me/messages').get());
     }
 }

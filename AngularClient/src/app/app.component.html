@@ -1,6 +1,7 @@
 Welcome {{displayName}}
 
 <button (click)="getMeEvent()">Get Me Events</button>
+<button (click)="getMeMail()">Get Me Mail</button>
 
 <div *ngFor="let event of events">
   {{event.start | date: 'yyyy/MM/dd hh:mm'}} - {{event.end | date: 'yyyy/MM/dd hh:mm'}}

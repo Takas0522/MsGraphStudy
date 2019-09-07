@@ -40,4 +40,10 @@ export class AppComponent implements OnInit {
       this.events = x.events;
     });
   }
+
+  getMeMail() {
+    this.graphService.getMail().subscribe(x => {
+      console.log(x);
+    });
+  }
 }

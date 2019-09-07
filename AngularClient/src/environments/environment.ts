@@ -7,12 +7,13 @@ export const environment = {
   msalConf: {
     auth: {
       clientId: '94f69c36-a533-47cb-bf4c-008e4bbadb7d',
-      authority: 'https://login.microsoftonline.com/028db01b-7420-42ce-ba2e-6efb6ac11c10'
+      authority: 'https://login.microsoftonline.com/common'
     }
   },
   graphConf: {
     scopes: [
-      'user.read'
+      'user.read',
+      'mail.read'
     ]
   }
 };
