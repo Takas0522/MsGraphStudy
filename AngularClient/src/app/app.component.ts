@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './auth.service';
 import { GraphService } from './graph.service';
-import { User, Event as IEvent } from '@microsoft/microsoft-graph-types';
+import { User, Event as IEvent, Message } from '@microsoft/microsoft-graph-types';
 
 @Component({
   selector: 'app-root',
@@ -16,6 +16,7 @@ export class AppComponent implements OnInit {
     return (typeof this.user) !== 'undefined' ? this.user.displayName : '';
   }
   events: IEvent[] = [];
+  messages: Message[] = [];
 
   constructor(
     private authService: AuthService,
@@ -31,6 +32,9 @@ export class AppComponent implements OnInit {
         this.user = x;
       });
     }
+    this.graphService.myMessage.subscribe(x => {
+      this.messages = x;
+    });
   }
 
   getMeEvent() {
@@ -42,8 +46,6 @@ export class AppComponent implements OnInit {
   }
 
   getMeMail() {
-    this.graphService.getMail().subscribe(x => {
-      console.log(x);
-    });
+    this.graphService.getMail();
   }
 }

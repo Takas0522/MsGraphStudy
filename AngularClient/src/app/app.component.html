@@ -7,3 +7,7 @@ Welcome {{displayName}}
   {{event.start | date: 'yyyy/MM/dd hh:mm'}} - {{event.end | date: 'yyyy/MM/dd hh:mm'}}
   {{event.subject}}
 </div>
+
+<div *ngFor="let message of messages">
+  {{message.receivedDateTime | date: 'yyyy/MM/dd hh:mm'}} - {{message.subject}}
+</div>

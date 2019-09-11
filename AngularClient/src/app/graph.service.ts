@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import * as graph from '@microsoft/microsoft-graph-client';
 import { AuthService } from './auth.service';
-import { Observable, from } from 'rxjs';
+import { Observable, from, BehaviorSubject } from 'rxjs';
 import { User, Calendar, Message } from '@microsoft/microsoft-graph-types';
+import { mergeMap } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -10,9 +11,13 @@ import { User, Calendar, Message } from '@microsoft/microsoft-graph-types';
 export class GraphService {
 
     private client: graph.Client;
+    private roopCount = 0;
+
     constructor(
         private authService: AuthService
     ) {}
+
+    myMessage: BehaviorSubject<Message[]> = new BehaviorSubject<Message[]>([]);
 
     initClient() {
         this.client = graph.Client.init({
@@ -35,7 +40,33 @@ export class GraphService {
         return from(this.client.api(`/me/calendarView?startDateTime=${startDateTime.toJSON}&endDateTime=${endDateTime.toJSON}`).get());
     }
 
-    getMail(): Observable<Message> {
-        return from(this.client.api('/me/messages').get());
+    getMail() {
+        this.roopCount = 0;
+        this.client.api('/me/messages').get().then(x => {
+            if (x['@odata.nextLink'] !== '') {
+                const nextLink = x['@odata.nextLink'];
+                this.getNextLinkData(nextLink);
+            }
+            const messageList = this.myMessage.value;
+            (x.value as Message[]).forEach(element => {
+                messageList.push(element);
+            });
+            this.myMessage.next(messageList);
+        });
+    }
+
+    getNextLinkData(nextLink: string) {
+        this.roopCount++;
+        this.client.api(nextLink).get().then(x => {
+            if (x['@odata.nextLink'] !== '' && this.roopCount < 10) {
+                const nestNextLink = x['@odata.nextLink'];
+                this.getNextLinkData(nestNextLink);
+            }
+            const messageList = this.myMessage.value;
+            (x.value as Message[]).forEach(element => {
+                messageList.push(element);
+            });
+            this.myMessage.next(messageList);
+        });
     }
 }
