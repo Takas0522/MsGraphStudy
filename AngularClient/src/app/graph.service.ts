@@ -42,7 +42,10 @@ export class GraphService {
 
     getMail() {
         this.roopCount = 0;
-        this.client.api('/me/messages').get().then(x => {
+        this.client.api('/me/messages')
+            .filter('isRead+eq+false')
+            .select('subject, receivedDateTime')
+            .get().then(x => {
             if (x['@odata.nextLink'] !== '') {
                 const nextLink = x['@odata.nextLink'];
                 this.getNextLinkData(nextLink);
@@ -57,7 +60,10 @@ export class GraphService {
 
     getNextLinkData(nextLink: string) {
         this.roopCount++;
-        this.client.api(nextLink).get().then(x => {
+        this.client.api(nextLink)
+            .filter('isRead+eq+false')
+            .select('subject, receivedDateTime')
+            .get().then(x => {
             if (x['@odata.nextLink'] !== '' && this.roopCount < 10) {
                 const nestNextLink = x['@odata.nextLink'];
                 this.getNextLinkData(nestNextLink);
