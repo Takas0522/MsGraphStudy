@@ -1,13 +1,6 @@
-Welcome {{displayName}}
-
-<button (click)="getMeEvent()">Get Me Events</button>
-<button (click)="getMeMail()">Get Me Mail</button>
-
-<div *ngFor="let event of events">
-  {{event.start | date: 'yyyy/MM/dd hh:mm'}} - {{event.end | date: 'yyyy/MM/dd hh:mm'}}
-  {{event.subject}}
-</div>
-
-<div *ngFor="let message of messages">
-  {{message.receivedDateTime | date: 'yyyy/MM/dd hh:mm'}} - {{message.subject}}
-</div>
+<mat-toolbar color="primary" class="mat-elevation-z8">
+  <mat-toolbar-row>
+    メーリングリスト(Graph Query Optionの動きをみてみよう)
+  </mat-toolbar-row>
+</mat-toolbar>
+<app-mailing-list></app-mailing-list>

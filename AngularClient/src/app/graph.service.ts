@@ -11,6 +11,9 @@ import { mergeMap } from 'rxjs/operators';
 export class GraphService {
 
     private client: graph.Client;
+    get graphClient() {
+        return this.client;
+    }
     private roopCount = 0;
 
     constructor(

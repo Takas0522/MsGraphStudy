@@ -1,0 +1,62 @@
+<div class="content">
+    {{hoge}}
+    <div class="filter-buttons">
+        <div style="grid-area: 1 / 1 / 2 / 2">
+            <button mat-raised-button>
+                Count
+            </button>
+        </div>
+        <div style="grid-area: 1 / 2 / 2 / 3">
+            <button mat-raised-button>
+                Expand
+            </button>
+        </div>
+        <div style="grid-area: 1 / 3 / 2 / 4">
+            <button mat-raised-button>
+                Filter
+            </button>
+        </div>
+        <div style="grid-area: 1 / 4 / 2 / 5">
+            <button mat-raised-button>
+                Format
+            </button>
+        </div>
+        <div style="grid-area: 1 / 5 / 2 / 6">
+            <button mat-raised-button>
+                OrderBy
+            </button>
+        </div>
+        <div style="grid-area: 1 / 6 / 2 / 7">
+            <button mat-raised-button>
+                Select
+            </button>
+        </div>
+        <div style="grid-area: 1 / 7 / 2 / 8">
+            <button mat-raised-button>
+                Top And Skip
+            </button>
+        </div>
+    </div>
+    <div class="mailing-list">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z4">
+
+            <ng-container matColumnDef="subject">
+                <th mat-header-cell *matHeaderCellDef> Subject </th>
+                <td mat-cell *matCellDef="let element"> {{element.subject}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="toRecipients">
+                <th mat-header-cell *matHeaderCellDef> ToRecipients </th>
+                <td mat-cell *matCellDef="let element"> {{element.toRecipients}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="receivedDateTime">
+                <th mat-header-cell *matHeaderCellDef> ReceivedDateTime </th>
+                <td mat-cell *matCellDef="let element"> {{element.receivedDateTime}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+    </div>
+</div>

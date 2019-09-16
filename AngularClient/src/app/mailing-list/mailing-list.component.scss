@@ -1,0 +1,17 @@
+.content {
+    width: 100vw;
+    height: calc(100vh - 70px);
+    overflow: auto;
+}
+.filter-buttons {
+    padding: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+.mailing-list {
+    height: calc(100% - 60px);
+    width: 100%;
+    table {
+        width: 100%;
+        }
+}
