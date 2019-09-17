@@ -34,6 +34,10 @@ export class MailingListComponent implements OnInit, OnDestroy {
     this.service.getDataWithFilter();
   }
 
+  orderClick() {
+    this.service.getDataWithOrder();
+  }
+
   ngOnDestroy(): void {
     this.service.dispose();
   }
