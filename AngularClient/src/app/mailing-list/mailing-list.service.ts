@@ -64,6 +64,27 @@ export class MailingListService {
     });
   }
 
+  getDataWithSelect() {
+    this.dataSource.next([]);
+    this.getSelectData(this.apiEndPoint);
+  }
+
+  private getSelectData(api: string) {
+    this.graphService.graphClient.api(api).select('sender').get().then(x => {
+      if (x['@odata.nextLink'] !== '' && this.dataSource.getValue().length < 100) {
+        const nextLink = x['@odata.nextLink'];
+        this.getSelectData(nextLink);
+      }
+      this.adjustMessageToComponent(x.value);
+    });
+  }
+
+  getExpand() {
+    this.graphService.graphClient.api('/me').expand('message').get().then(x => {
+      console.log(x);
+    });
+  }
+
   private adjustMessageToComponent(messages: Message[]) {
     const pushMessages: ShowMail[] = this.dataSource.getValue();
     messages.forEach(x => {

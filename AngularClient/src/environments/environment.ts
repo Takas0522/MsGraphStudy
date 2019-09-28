@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   msalConf: {
     auth: {
-      clientId: 'a9dd10d8-5060-4546-89b0-f556a2f7db0d',
+      clientId: '<????>',
       authority: 'https://login.microsoftonline.com/common'
     }
   },
