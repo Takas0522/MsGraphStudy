@@ -1,0 +1,45 @@
+<form [formGroup]="fg">
+  <div>
+  <mat-form-field>
+    <input matInput formControlName="clientId" placeholder="クライアントID"/>
+  </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
+      <input matInput formControlName="scopes" placeholder="スコープ"/>
+    </mat-form-field>
+  </div>
+  <div>
+    <button mat-flat-button color="primary"
+      [disabled]="fg.invalid"
+      (click)="auth()">
+      認証
+    </button>
+    <button mat-flat-button color="primary"
+      [disabled]="fg.invalid"
+      (click)="aquireToken()">
+      トークン取得
+    </button>
+  </div>
+</form>
+<ng-container *ngIf="isLogin">
+  <div>
+    {{account.name}}
+  </div>
+  <div>
+    {{account.userName}}
+  </div>
+</ng-container>
+<ng-container *ngIf="accessToken !== ''">
+  <div>
+    アクセストークン
+  </div>
+  <div>
+    <input id="access-token" value="{{accessToken}}">
+  </div>
+  <div>
+    <button mat-stroked-button (click)="copyClipBoard()">
+      Copy
+    </button>
+  </div>
+</ng-container>
